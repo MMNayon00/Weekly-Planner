@@ -1,0 +1,189 @@
+.weekContainer {
+    min-height: 100vh;
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    animation: fadeIn var(--transition-base) ease-out;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+}
+
+.breadcrumbLink {
+    color: var(--accent);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.breadcrumbLink:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+.breadcrumbSeparator {
+    color: var(--text-tertiary);
+}
+
+.weekHeader {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.weekTitle {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.weekDates {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+}
+
+.contentWrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--spacing-2xl);
+    align-items: start;
+}
+
+.habitGridSection {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.habitGrid {
+    overflow-x: auto;
+}
+
+.gridTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 600px;
+}
+
+.gridTable th,
+.gridTable td {
+    padding: var(--spacing-md);
+    text-align: center;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.gridTable th {
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.gridTable th:first-child {
+    text-align: left;
+    min-width: 200px;
+}
+
+.habitLabel {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+}
+
+.dayHeader {
+    font-size: var(--font-size-sm);
+}
+
+.dayName {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.dayDate {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.dayHeader.today {
+    color: var(--accent);
+}
+
+.checkboxCell {
+    position: relative;
+}
+
+.checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border-radius: var(--radius-sm);
+}
+
+.checkbox:hover {
+    transform: scale(1.1);
+}
+
+.checkbox:checked {
+    accent-color: var(--accent);
+}
+
+.loadingState {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--text-secondary);
+}
+
+.errorState {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: #C33;
+    background: #FEE;
+    border-radius: var(--radius-md);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .contentWrapper {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+}
+
+@media (max-width: 768px) {
+    .weekContainer {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .habitGridSection {
+        padding: var(--spacing-md);
+    }
+
+    .gridTable th,
+    .gridTable td {
+        padding: var(--spacing-sm);
+    }
+
+    .habitLabel {
+        font-size: var(--font-size-xs);
+    }
+
+    .checkbox {
+        width: 20px;
+        height: 20px;
+    }
+}
