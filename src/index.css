@@ -16,7 +16,7 @@
   --border-light: #ECECEC;
   --shadow: rgba(0, 0, 0, 0.05);
   --shadow-md: rgba(0, 0, 0, 0.08);
-  
+
   /* Spacing (8px grid) */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -25,13 +25,13 @@
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
   --spacing-3xl: 64px;
-  
+
   /* Border Radius */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
-  
+
   /* Typography */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-size-xs: 12px;
@@ -42,7 +42,7 @@
   --font-size-2xl: 24px;
   --font-size-3xl: 32px;
   --font-size-4xl: 40px;
-  
+
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
@@ -74,18 +74,40 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
 }
 
-h1 { font-size: var(--font-size-4xl); }
-h2 { font-size: var(--font-size-3xl); }
-h3 { font-size: var(--font-size-2xl); }
-h4 { font-size: var(--font-size-xl); }
-h5 { font-size: var(--font-size-lg); }
-h6 { font-size: var(--font-size-base); }
+h1 {
+  font-size: var(--font-size-4xl);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+}
+
+h6 {
+  font-size: var(--font-size-base);
+}
 
 p {
   margin-bottom: var(--spacing-md);
@@ -171,6 +193,7 @@ input[type="checkbox"] {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -182,6 +205,7 @@ input[type="checkbox"] {
     opacity: 0;
     transform: translateX(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -189,9 +213,12 @@ input[type="checkbox"] {
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -225,6 +252,14 @@ input[type="checkbox"] {
 }
 
 /* Responsive Typography */
+@media (max-width: 1024px) {
+  :root {
+    --font-size-4xl: 36px;
+    --font-size-3xl: 28px;
+    --font-size-2xl: 22px;
+  }
+}
+
 @media (max-width: 768px) {
   :root {
     --font-size-4xl: 32px;
@@ -239,7 +274,7 @@ input[type="checkbox"] {
     --font-size-3xl: 22px;
     --font-size-2xl: 18px;
   }
-  
+
   .container {
     padding: 0 var(--spacing-md);
   }

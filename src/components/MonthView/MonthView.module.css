@@ -131,13 +131,59 @@
     text-align: center;
 }
 
-@media (max-width: 768px) {
+/* Tablet */
+@media (max-width: 1024px) {
     .monthContainer {
         padding: var(--spacing-xl) var(--spacing-md);
     }
 
     .weeksGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+
+    .weekCard {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .monthContainer {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .weeksGrid {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
+    }
+
+    .weekCard {
+        padding: var(--spacing-md);
+        min-height: 100px;
+        /* Touch target */
+    }
+
+    .breadcrumb {
+        font-size: var(--font-size-xs);
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .monthContainer {
+        padding: var(--spacing-md);
+    }
+
+    .weekCard {
+        padding: var(--spacing-md);
+    }
+
+    .weekLabel {
+        font-size: var(--font-size-lg);
+    }
+
+    .breadcrumb {
+        flex-wrap: wrap;
     }
 }

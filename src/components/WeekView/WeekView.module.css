@@ -162,15 +162,25 @@
         grid-template-columns: 1fr;
         gap: var(--spacing-xl);
     }
+
+    .gridTable {
+        min-width: 500px;
+    }
 }
 
 @media (max-width: 768px) {
     .weekContainer {
-        padding: var(--spacing-xl) var(--spacing-md);
+        padding: var(--spacing-lg) var(--spacing-md);
     }
 
     .habitGridSection {
         padding: var(--spacing-md);
+        overflow-x: auto;
+    }
+
+    .gridTable {
+        min-width: 550px;
+        /* Ensure horizontal scroll on small screens */
     }
 
     .gridTable th,
@@ -180,11 +190,61 @@
 
     .habitLabel {
         font-size: var(--font-size-xs);
+        min-width: 120px;
     }
 
     .checkbox {
-        width: 20px;
-        height: 20px;
+        width: 28px;
+        /* Larger for touch */
+        height: 28px;
+    }
+
+    .dayHeader {
+        font-size: var(--font-size-xs);
+    }
+
+    .weekTitle {
+        font-size: var(--font-size-2xl);
+    }
+}
+
+@media (max-width: 480px) {
+    .weekContainer {
+        padding: var(--spacing-md);
+    }
+
+    .habitGridSection {
+        padding: var(--spacing-sm);
+        border-radius: var(--radius-md);
+    }
+
+    .gridTable th,
+    .gridTable td {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    .checkbox {
+        width: 32px;
+        /* Even larger for small phones */
+        height: 32px;
+    }
+
+    .habitLabel {
+        font-size: var(--font-size-xs);
+        min-width: 100px;
+    }
+
+    .dayName {
+        font-size: var(--font-size-xs);
+    }
+
+    .dayDate {
+        display: none;
+        /* Hide dates on very small screens */
+    }
+
+    .breadcrumb {
+        font-size: var(--font-size-xs);
     }
 }
 
@@ -196,23 +256,32 @@
 
 .emptyState p {
     font-size: var(--font-size-base);
-    color: var(--color-text-secondary);
+    color: var(--text-secondary);
     margin-bottom: var(--spacing-md);
 }
 
 .addHabitsButton {
     padding: var(--spacing-md) var(--spacing-lg);
-    background: var(--color-accent);
+    background: var(--accent);
     color: white;
     border: none;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--radius-md);
     font-size: var(--font-size-base);
     font-weight: 500;
     cursor: pointer;
     transition: all var(--transition-fast);
+    min-height: 44px;
+    /* Touch target */
 }
 
 .addHabitsButton:hover {
     background: #7a9d77;
     transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+    .addHabitsButton {
+        width: 100%;
+        padding: var(--spacing-md);
+    }
 }

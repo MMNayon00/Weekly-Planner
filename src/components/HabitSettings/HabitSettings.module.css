@@ -281,5 +281,53 @@
 
     .addButton {
         width: 100%;
+        min-height: 48px;
+        /* Larger touch target */
+    }
+
+    .iconButton {
+        padding: var(--spacing-sm);
+        /* Larger tap area */
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .habitItem {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: var(--spacing-sm);
+    }
+
+    .header h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    .addInput {
+        font-size: var(--font-size-base);
+        padding: var(--spacing-md);
+    }
+
+    .iconButton {
+        min-width: 48px;
+        /* Even larger for small phones */
+        min-height: 48px;
+        font-size: var(--font-size-lg);
+    }
+
+    .modalContent {
+        width: 95%;
+        padding: var(--spacing-lg);
+    }
+
+    .modalButton {
+        padding: var(--spacing-md) var(--spacing-lg);
+        min-height: 44px;
     }
 }

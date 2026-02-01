@@ -111,9 +111,46 @@
 @media (max-width: 768px) {
     .authCard {
         padding: var(--spacing-xl);
+        max-width: 90%;
     }
 
     .authTitle {
         font-size: var(--font-size-xl);
+    }
+
+    .googleButton {
+        padding: var(--spacing-md);
+        min-height: 48px;
+        /* Larger touch target */
+    }
+}
+
+@media (max-width: 480px) {
+    .authContainer {
+        padding: var(--spacing-md);
+    }
+
+    .authCard {
+        padding: var(--spacing-lg);
+        max-width: 100%;
+    }
+
+    .authTitle {
+        font-size: var(--font-size-lg);
+    }
+
+    .authSubtitle {
+        font-size: var(--font-size-sm);
+    }
+
+    .googleButton {
+        padding: var(--spacing-md);
+        min-height: 52px;
+        /* Even larger for small phones */
+        font-size: var(--font-size-base);
+    }
+
+    .securityNote {
+        font-size: var(--font-size-xs);
     }
 }
