@@ -6,19 +6,20 @@ import { TOTAL_HABITS } from './habitData';
  * @returns {number} Progress percentage (0-100)
  */
 export const calculateWeeklyProgress = (weekData) => {
+    // Total possible checkmarks for a week: 8 habits × 7 days = 56
+    const TOTAL_POSSIBLE = TOTAL_HABITS * 7;
+
     if (!weekData || Object.keys(weekData).length === 0) {
         return 0;
     }
 
     let totalCompleted = 0;
-    let totalPossible = 0;
 
     // Iterate through each day in the week
     Object.values(weekData).forEach((dayData) => {
         if (dayData && typeof dayData === 'object') {
             // Count completed habits for this day
             Object.values(dayData).forEach((isCompleted) => {
-                totalPossible++;
                 if (isCompleted === true) {
                     totalCompleted++;
                 }
@@ -26,11 +27,7 @@ export const calculateWeeklyProgress = (weekData) => {
         }
     });
 
-    if (totalPossible === 0) {
-        return 0;
-    }
-
-    return Math.round((totalCompleted / totalPossible) * 100);
+    return Math.round((totalCompleted / TOTAL_POSSIBLE) * 100);
 };
 
 /**
@@ -53,17 +50,18 @@ export const calculateDailyProgress = (dayData) => {
  * @returns {Object} Object with completed and total counts
  */
 export const getWeekCompletionCount = (weekData) => {
+    // Total possible checkmarks for a week: 8 habits × 7 days = 56
+    const TOTAL_POSSIBLE = TOTAL_HABITS * 7;
+
     if (!weekData || Object.keys(weekData).length === 0) {
-        return { completed: 0, total: 0 };
+        return { completed: 0, total: TOTAL_POSSIBLE };
     }
 
     let totalCompleted = 0;
-    let totalPossible = 0;
 
     Object.values(weekData).forEach((dayData) => {
         if (dayData && typeof dayData === 'object') {
             Object.values(dayData).forEach((isCompleted) => {
-                totalPossible++;
                 if (isCompleted === true) {
                     totalCompleted++;
                 }
@@ -71,7 +69,7 @@ export const getWeekCompletionCount = (weekData) => {
         }
     });
 
-    return { completed: totalCompleted, total: totalPossible };
+    return { completed: totalCompleted, total: TOTAL_POSSIBLE };
 };
 
 /**
