@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import Login from './components/Auth/Login';
-import Signup from './components/Auth/Signup';
 import YearView from './components/YearView/YearView';
 import MonthView from './components/MonthView/MonthView';
 import WeekView from './components/WeekView/WeekView';
+import HabitSettings from './components/HabitSettings/HabitSettings';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -33,10 +33,6 @@ function App() {
           path="/login"
           element={user ? <Navigate to="/" replace /> : <Login />}
         />
-        <Route
-          path="/signup"
-          element={user ? <Navigate to="/" replace /> : <Signup />}
-        />
 
         {/* Protected routes */}
         <Route
@@ -60,6 +56,14 @@ function App() {
           element={
             <ProtectedRoute>
               <WeekView />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings/habits"
+          element={
+            <ProtectedRoute>
+              <HabitSettings />
             </ProtectedRoute>
           }
         />

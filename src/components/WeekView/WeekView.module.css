@@ -187,3 +187,32 @@
         height: 20px;
     }
 }
+
+/* Empty State */
+.emptyState {
+    text-align: center;
+    padding: var(--spacing-2xl);
+}
+
+.emptyState p {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.addHabitsButton {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.addHabitsButton:hover {
+    background: #7a9d77;
+    transform: translateY(-1px);
+}

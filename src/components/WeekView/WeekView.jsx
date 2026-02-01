@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useHabitData } from '../../hooks/useHabitData';
-import { HABITS } from '../../utils/habitData';
+import { useCustomHabits } from '../../hooks/useCustomHabits';
 import {
     getWeeksInMonth,
     formatDate,
@@ -19,6 +19,7 @@ const WeekView = () => {
     const { monthId, weekId } = useParams();
     const navigate = useNavigate();
     const { user } = useAuth();
+    const { habits, loading: habitsLoading } = useCustomHabits(user?.uid);
 
     // Parse monthId (format: YYYY-MM)
     const [year, month] = monthId.split('-').map(Number);
@@ -38,9 +39,11 @@ const WeekView = () => {
         weekId
     );
 
-    // Calculate progress
-    const progress = calculateWeeklyProgress(habitData);
-    const { completed, total } = getWeekCompletionCount(habitData);
+    // Calculate progress with dynamic habit count and filter deleted habits
+    const habitCount = habits.length;
+    const validHabitIds = habits.map(h => h.id);
+    const progress = calculateWeeklyProgress(habitData, habitCount, validHabitIds);
+    const { completed, total } = getWeekCompletionCount(habitData, habitCount, validHabitIds);
 
     const handleBackToMonth = () => {
         navigate(`/month/${monthId}`);
@@ -55,7 +58,7 @@ const WeekView = () => {
         toggleHabit(dayId, habitId);
     };
 
-    if (loading) {
+    if (loading || habitsLoading) {
         return <div className={styles.loadingState}>Loading habit data...</div>;
     }
 
@@ -110,7 +113,19 @@ const WeekView = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {HABITS.map((habit) => (
+                                {habits.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="8" className={styles.emptyState}>
+                                            <p>No habits yet!</p>
+                                            <button
+                                                onClick={() => navigate('/settings/habits')}
+                                                className={styles.addHabitsButton}
+                                            >
+                                                Add Your First Habit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ) : habits.map((habit) => (
                                     <tr key={habit.id}>
                                         <td className={styles.habitLabel}>{habit.label}</td>
                                         {currentWeek.days.map((day) => {

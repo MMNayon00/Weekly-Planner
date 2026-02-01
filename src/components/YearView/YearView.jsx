@@ -24,9 +24,14 @@ const YearView = () => {
 
     return (
         <div className={styles.yearContainer}>
-            <button onClick={handleLogout} className={styles.logoutButton}>
-                Logout
-            </button>
+            <div className={styles.headerButtons}>
+                <button onClick={() => navigate('/settings/habits')} className={styles.settingsButton}>
+                    ⚙️ Manage Habits
+                </button>
+                <button onClick={handleLogout} className={styles.logoutButton}>
+                    Logout
+                </button>
+            </div>
 
             <div className={styles.yearHeader}>
                 <h1 className={styles.yearTitle}>{currentYear}</h1>

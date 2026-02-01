@@ -1,15 +1,17 @@
-import { TOTAL_HABITS } from './habitData';
+// Progress calculation utilities for habit tracking
 
 /**
  * Calculate weekly progress percentage
  * @param {Object} weekData - Object containing habit completion data for the week
+ * @param {number} habitCount - Number of habits the user has
+ * @param {Array} validHabitIds - Array of current valid habit IDs (optional, for filtering deleted habits)
  * @returns {number} Progress percentage (0-100)
  */
-export const calculateWeeklyProgress = (weekData) => {
-    // Total possible checkmarks for a week: 8 habits × 7 days = 56
-    const TOTAL_POSSIBLE = TOTAL_HABITS * 7;
+export const calculateWeeklyProgress = (weekData, habitCount = 0, validHabitIds = null) => {
+    // Total possible checkmarks for a week: habitCount × 7 days
+    const TOTAL_POSSIBLE = habitCount * 7;
 
-    if (!weekData || Object.keys(weekData).length === 0) {
+    if (!weekData || Object.keys(weekData).length === 0 || TOTAL_POSSIBLE === 0) {
         return 0;
     }
 
@@ -19,8 +21,9 @@ export const calculateWeeklyProgress = (weekData) => {
     Object.values(weekData).forEach((dayData) => {
         if (dayData && typeof dayData === 'object') {
             // Count completed habits for this day
-            Object.values(dayData).forEach((isCompleted) => {
-                if (isCompleted === true) {
+            Object.entries(dayData).forEach(([habitId, isCompleted]) => {
+                // Only count if habit is completed AND (no filter OR habit exists in valid list)
+                if (isCompleted === true && (!validHabitIds || validHabitIds.includes(habitId))) {
                     totalCompleted++;
                 }
             });
@@ -47,11 +50,13 @@ export const calculateDailyProgress = (dayData) => {
 /**
  * Get completion count for a week
  * @param {Object} weekData - Object containing habit completion data for the week
+ * @param {number} habitCount - Number of habits the user has
+ * @param {Array} validHabitIds - Array of current valid habit IDs (optional, for filtering deleted habits)
  * @returns {Object} Object with completed and total counts
  */
-export const getWeekCompletionCount = (weekData) => {
-    // Total possible checkmarks for a week: 8 habits × 7 days = 56
-    const TOTAL_POSSIBLE = TOTAL_HABITS * 7;
+export const getWeekCompletionCount = (weekData, habitCount = 0, validHabitIds = null) => {
+    // Total possible checkmarks for a week: habitCount × 7 days
+    const TOTAL_POSSIBLE = habitCount * 7;
 
     if (!weekData || Object.keys(weekData).length === 0) {
         return { completed: 0, total: TOTAL_POSSIBLE };
@@ -61,8 +66,9 @@ export const getWeekCompletionCount = (weekData) => {
 
     Object.values(weekData).forEach((dayData) => {
         if (dayData && typeof dayData === 'object') {
-            Object.values(dayData).forEach((isCompleted) => {
-                if (isCompleted === true) {
+            Object.entries(dayData).forEach(([habitId, isCompleted]) => {
+                // Only count if habit is completed AND (no filter OR habit exists in valid list)
+                if (isCompleted === true && (!validHabitIds || validHabitIds.includes(habitId))) {
                     totalCompleted++;
                 }
             });
