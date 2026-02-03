@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { auth, googleProvider } from '../../config/firebase.config';
 import styles from './Login.module.css';
 
@@ -9,27 +9,35 @@ const Login = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    // Check for redirect result on component mount
+    useEffect(() => {
+        const checkRedirectResult = async () => {
+            try {
+                const result = await getRedirectResult(auth);
+                if (result) {
+                    // User successfully signed in via redirect
+                    navigate('/');
+                }
+            } catch (err) {
+                console.error('Redirect sign-in error:', err);
+                setError('Failed to complete sign-in. Please try again.');
+            }
+        };
+
+        checkRedirectResult();
+    }, [navigate]);
+
     const handleGoogleSignIn = async () => {
         setError('');
         setLoading(true);
 
         try {
-            await signInWithPopup(auth, googleProvider);
-            navigate('/');
+            // Use redirect method instead of popup to avoid COOP policy issues
+            await signInWithRedirect(auth, googleProvider);
+            // The page will redirect, so loading state will persist
         } catch (err) {
             console.error('Google sign-in error:', err);
-
-            // Handle specific error cases
-            if (err.code === 'auth/popup-closed-by-user') {
-                setError('Sign-in cancelled. Please try again.');
-            } else if (err.code === 'auth/popup-blocked') {
-                setError('Popup blocked. Please allow popups for this site.');
-            } else if (err.code === 'auth/cancelled-popup-request') {
-                setError('Sign-in cancelled. Please try again.');
-            } else {
-                setError('Failed to sign in with Google. Please try again.');
-            }
-        } finally {
+            setError('Failed to sign in with Google. Please try again.');
             setLoading(false);
         }
     };

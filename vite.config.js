@@ -5,6 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/', // Ensure correct base path for deployment
+  server: {
+    headers: {
+      // Completely disable Cross-Origin-Opener-Policy to allow Firebase popup authentication
+      'Cross-Origin-Opener-Policy': 'unsafe-none',
+      'Cross-Origin-Embedder-Policy': 'unsafe-none'
+    }
+  },
   build: {
     outDir: 'dist',
     sourcemap: false, // Disable sourcemaps in production
