@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import {
+    getAuth,
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    updateProfile
+} from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 // Firebase configuration from environment variables

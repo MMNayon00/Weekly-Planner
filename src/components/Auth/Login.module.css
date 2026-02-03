@@ -72,6 +72,175 @@
     flex-shrink: 0;
 }
 
+/* Email/Password Form */
+.authForm {
+    margin-bottom: var(--spacing-lg);
+}
+
+.formTitle {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.formSubtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.input {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 1px solid #dadce0;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+    transition: all var(--transition-fast);
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.input::placeholder {
+    color: #9aa0a6;
+}
+
+.passwordContainer {
+    position: relative;
+    margin-bottom: var(--spacing-md);
+}
+
+.passwordContainer .input {
+    margin-bottom: 0;
+    padding-right: 45px;
+}
+
+.togglePassword {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    opacity: 0.6;
+    transition: opacity var(--transition-fast);
+}
+
+.togglePassword:hover {
+    opacity: 1;
+}
+
+.submitButton {
+    width: 100%;
+    padding: var(--spacing-md);
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-bottom: var(--spacing-sm);
+}
+
+.submitButton:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(138, 168, 136, 0.3);
+}
+
+.submitButton:active {
+    transform: translateY(0);
+}
+
+.submitButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.forgotPassword {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    text-decoration: underline;
+    padding: var(--spacing-xs) 0;
+    margin-bottom: var(--spacing-md);
+}
+
+.forgotPassword:hover {
+    color: var(--accent-hover);
+}
+
+.linkButton {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    padding: var(--spacing-sm) 0;
+    margin-top: var(--spacing-sm);
+}
+
+.linkButton:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: var(--spacing-xl) 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #dadce0;
+}
+
+.divider span {
+    padding: 0 var(--spacing-md);
+}
+
+/* Toggle Text */
+.toggleText {
+    margin-top: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.toggleButton {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+}
+
+.toggleButton:hover {
+    text-decoration: underline;
+}
+
 /* Error Message */
 .errorMessage {
     margin-top: var(--spacing-lg);
@@ -80,6 +249,17 @@
     border: 1px solid #fcc;
     border-radius: var(--border-radius-md);
     color: #c33;
+    font-size: var(--font-size-sm);
+}
+
+/* Success Message */
+.successMessage {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: #efe;
+    border: 1px solid #cfc;
+    border-radius: var(--border-radius-md);
+    color: #3c3;
     font-size: var(--font-size-sm);
 }
 
