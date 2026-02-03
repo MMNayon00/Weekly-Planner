@@ -1,43 +1,70 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signInWithRedirect, getRedirectResult } from 'firebase/auth';
+import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { auth, googleProvider } from '../../config/firebase.config';
 import styles from './Login.module.css';
 
 const Login = () => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    // Check for redirect result on component mount
+    // Check for authentication state on component mount
     useEffect(() => {
-        const checkRedirectResult = async () => {
-            try {
-                const result = await getRedirectResult(auth);
-                if (result) {
-                    // User successfully signed in via redirect
-                    navigate('/');
-                }
-            } catch (err) {
-                console.error('Redirect sign-in error:', err);
-                setError('Failed to complete sign-in. Please try again.');
-            }
-        };
+        console.log('[Auth] Setting up auth state listener...');
 
-        checkRedirectResult();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                console.log('[Auth] User is already signed in:', user.email);
+                console.log('[Auth] Navigating to home page...');
+                navigate('/');
+            } else {
+                // User is signed out
+                console.log('[Auth] No user signed in');
+                setLoading(false);
+            }
+        });
+
+        // Cleanup function
+        return () => {
+            console.log('[Auth] Cleaning up auth listener');
+            unsubscribe();
+        };
     }, [navigate]);
 
     const handleGoogleSignIn = async () => {
+        console.log('[Auth] Sign in button clicked');
         setError('');
         setLoading(true);
 
         try {
-            // Use redirect method instead of popup to avoid COOP policy issues
-            await signInWithRedirect(auth, googleProvider);
-            // The page will redirect, so loading state will persist
+            console.log('[Auth] Opening Google sign-in popup...');
+            const result = await signInWithPopup(auth, googleProvider);
+
+            console.log('[Auth] Sign-in successful!');
+            console.log('[Auth] User:', result.user.email);
+            console.log('[Auth] Navigating to home page...');
+
+            // Navigation will be handled by onAuthStateChanged listener
         } catch (err) {
-            console.error('Google sign-in error:', err);
-            setError('Failed to sign in with Google. Please try again.');
+            console.error('[Auth] Sign-in error:', err);
+            console.error('[Auth] Error code:', err.code);
+            console.error('[Auth] Error message:', err.message);
+
+            // Show user-friendly error messages
+            if (err.code === 'auth/popup-closed-by-user') {
+                setError('Sign-in cancelled. Please try again.');
+            } else if (err.code === 'auth/popup-blocked') {
+                setError('❌ Popup was blocked. Please allow popups for this site and try again.');
+            } else if (err.code === 'auth/unauthorized-domain') {
+                setError('❌ This domain is not authorized. Please add localhost to Firebase authorized domains.');
+            } else if (err.code === 'auth/operation-not-allowed') {
+                setError('❌ Google sign-in is not enabled. Please enable it in Firebase Console.');
+            } else {
+                setError(`❌ Failed to sign in: ${err.message}`);
+            }
+
             setLoading(false);
         }
     };
